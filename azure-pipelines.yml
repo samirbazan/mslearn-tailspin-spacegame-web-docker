@@ -6,7 +6,7 @@ variables:
   webRepository: 'web'
   tag: '$(Build.BuildId)'
 
-steps:
+stages:
 - stage: 'Build'
   displayName: 'Build and push'
   jobs:  
@@ -26,6 +26,7 @@ steps:
         tags: |
           $(tag)
 
+
 - stage: 'Deploy'
   displayName: 'Deploy the container'
   dependsOn: Build
@@ -39,6 +40,6 @@ steps:
     steps:
     - task: AzureWebAppContainer@1
       inputs:
-       appName: $(WebAppName)
-       azureSubscription: 'Resource Manager - Tailspin - Space Game'
-       imageName: $(RegistryName)/$(webRepository):$(build.buildId)
+        appName: $(WebAppName)
+        azureSubscription: 'Resource Manager - Tailspin - Space Game'
+        imageName: $(RegistryName)/$(webRepository):$(build.buildId)
